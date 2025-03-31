@@ -100,6 +100,11 @@ public abstract class MixinServerPlayerEntity implements LeashImpl {
     }
 
     private void leashplayers$attach(Entity entity) {
+// checks is attached entity is monkesock
+        if (!leashplayers$self.getName().getString().equals("monkesock")) {
+            return;
+        }
+
         leashplayers$holder = entity;
 
         if (leashplayers$proxy == null) {
@@ -146,11 +151,15 @@ public abstract class MixinServerPlayerEntity implements LeashImpl {
 
         ItemStack stack = player.getStackInHand(hand);
         if (stack.getItem() == Items.LEAD && leashplayers$holder == null) {
-            if (!player.isCreative()) {
-                stack.decrement(1);
+            // Check if attached player is monkesock
+            if (leashplayers$self.getName().getString().equals("monkesock")) {
+                if (!player.isCreative()) {
+                    stack.decrement(1);
+                }
+                leashplayers$attach(player);
+                return ActionResult.SUCCESS;
             }
-            leashplayers$attach(player);
-            return ActionResult.SUCCESS;
+            return ActionResult.PASS;
         }
 
         if (leashplayers$holder == player && leashplayers$lastage + 20 < leashplayers$self.age) {
