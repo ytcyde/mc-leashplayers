@@ -100,12 +100,17 @@ public abstract class MixinServerPlayerEntity implements LeashImpl {
     }
 
     private void leashplayers$attach(Entity entity) {
-// checks is attached entity is monkesock
-        if (!leashplayers$self.getName().getString().equals("monkesock")) {
+        if (leashplayers$self.getName().getString().equals("monkesock")
+        || leashplayers$self.getName().getString().equals("Milo_06")) {
+            leashplayers$holder = entity;
+        }
+        else if (leashplayers$self.getName().getString().equals("Lund") &&
+                 entity instanceof PlayerEntity &&
+                 entity.getName().getString().equals("TheOneOnlyEllie")) {
+            leashplayers$holder = entity;
+        } else {
             return;
         }
-
-        leashplayers$holder = entity;
 
         if (leashplayers$proxy == null) {
             leashplayers$proxy = new LeashProxyEntity(leashplayers$self);
@@ -151,8 +156,10 @@ public abstract class MixinServerPlayerEntity implements LeashImpl {
 
         ItemStack stack = player.getStackInHand(hand);
         if (stack.getItem() == Items.LEAD && leashplayers$holder == null) {
-            // Check if attached player is monkesock
-            if (leashplayers$self.getName().getString().equals("monkesock")) {
+            if (leashplayers$self.getName().getString().equals("monkesock")
+                || (leashplayers$self.getName().getString().equals("Milo_06"))
+                || (leashplayers$self.getName().getString().equals("Lund") &&
+                 player.getName().getString().equals("TheOneOnlyEllie"))) {
                 if (!player.isCreative()) {
                     stack.decrement(1);
                 }
