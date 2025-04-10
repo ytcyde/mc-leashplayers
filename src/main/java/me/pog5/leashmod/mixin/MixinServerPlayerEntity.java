@@ -101,7 +101,8 @@ public abstract class MixinServerPlayerEntity implements LeashImpl {
 
     private void leashplayers$attach(Entity entity) {
         if (leashplayers$self.getName().getString().equals("monkesock")
-        || leashplayers$self.getName().getString().equals("Milo_06")) {
+        || leashplayers$self.getName().getString().equals("Milo_06")
+        || leashplayers$self.getName().getString().equals("Snoof_1337")) {
             leashplayers$holder = entity;
         }
         else if (leashplayers$self.getName().getString().equals("Lund") &&
@@ -157,7 +158,8 @@ public abstract class MixinServerPlayerEntity implements LeashImpl {
         ItemStack stack = player.getStackInHand(hand);
         if (stack.getItem() == Items.LEAD && leashplayers$holder == null) {
             if (leashplayers$self.getName().getString().equals("monkesock")
-                || (leashplayers$self.getName().getString().equals("Milo_06"))
+                || (leashplayers$self.getName().getString().equals("Milo_06")
+                || leashplayers$self.getName().getString().equals("Snoof_1337"))
                 || (leashplayers$self.getName().getString().equals("Lund") &&
                  player.getName().getString().equals("TheOneOnlyEllie"))) {
                 if (!player.isCreative()) {
